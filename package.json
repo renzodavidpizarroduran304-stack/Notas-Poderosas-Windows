@@ -13,6 +13,6 @@
     "directories":{"output":"dist"},
     "files":["main.js","app/**/*"],
     "win":{"target":[{"target":"nsis","arch":["x64"]}]},
-    "nsis":{"oneClick":true,"perMachine":false,"allowToChangeInstallationDirectory":true,"createDesktopShortcut":true,"createStartMenuShortcut":true}
+    "nsis":{"oneClick":true,"perMachine":false,"createDesktopShortcut":true,"createStartMenuShortcut":true}
   }
 }
