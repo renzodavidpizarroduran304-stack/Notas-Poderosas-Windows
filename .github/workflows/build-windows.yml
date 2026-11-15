@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "NotasPoderosas.apk"
+      - "base (2).apk"
       - "package.json"
       - "main.js"
       - ".github/workflows/build-windows.yml"
@@ -23,11 +23,11 @@ jobs:
       - name: Extract original app from APK
         shell: pwsh
         run: |
-          if (!(Test-Path "NotasPoderosas.apk")) {
-            throw "Falta NotasPoderosas.apk en la raíz del repositorio."
+          if (!(Test-Path "base (2).apk")) {
+            throw "Falta base (2).apk en la raíz del repositorio."
           }
           New-Item -ItemType Directory -Force -Path "app" | Out-Null
-          tar -xf "NotasPoderosas.apk" "assets/index.html" "assets/forest_bg.jpg"
+          tar -xf "base (2).apk" "assets/index.html" "assets/forest_bg.jpg"
           Copy-Item "assets/index.html" "app/index.html"
           Copy-Item "assets/forest_bg.jpg" "app/forest_bg.jpg"
 
