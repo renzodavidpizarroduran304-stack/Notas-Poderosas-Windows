@@ -1,0 +1,18 @@
+{
+  "name": "notas-poderosas",
+  "version": "1.0.0",
+  "description": "Notas Poderosas para Windows",
+  "main": "main.js",
+  "author": "Notas Poderosas",
+  "license": "UNLICENSED",
+  "scripts": {"start":"electron .","dist":"electron-builder --win nsis"},
+  "devDependencies": {"electron":"^38.0.0","electron-builder":"^26.0.12"},
+  "build": {
+    "appId":"com.notaspoderosas.desktop",
+    "productName":"Notas Poderosas",
+    "directories":{"output":"dist"},
+    "files":["main.js","app/**/*"],
+    "win":{"target":[{"target":"nsis","arch":["x64"]}]},
+    "nsis":{"oneClick":true,"perMachine":false,"allowToChangeInstallationDirectory":true,"createDesktopShortcut":true,"createStartMenuShortcut":true}
+  }
+}
