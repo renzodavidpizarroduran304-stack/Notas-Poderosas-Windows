@@ -1,0 +1,52 @@
+name: Build Notas Poderosas for Windows
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "NotasPoderosas.apk"
+      - "package.json"
+      - "main.js"
+      - ".github/workflows/build-windows.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Extract original app from APK
+        shell: pwsh
+        run: |
+          if (!(Test-Path "NotasPoderosas.apk")) {
+            throw "Falta NotasPoderosas.apk en la raíz del repositorio."
+          }
+          New-Item -ItemType Directory -Force -Path "app" | Out-Null
+          tar -xf "NotasPoderosas.apk" "assets/index.html" "assets/forest_bg.jpg"
+          Copy-Item "assets/index.html" "app/index.html"
+          Copy-Item "assets/forest_bg.jpg" "app/forest_bg.jpg"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Windows installer
+        run: npm run dist
+
+      - name: Upload EXE installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Notas-Poderosas-Windows-EXE
+          path: dist/*.exe
+          if-no-files-found: error
+          retention-days: 30
